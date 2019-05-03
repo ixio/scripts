@@ -289,9 +289,12 @@ if [ $? -ne 0 ]; then
 fi
 
 #install
+echo ektest
+du -sh /tmp/Storage/${LE_version}/target/*
 cp /tmp/Storage/${LE_version}/target/KERNEL /tmp/System/
 echo ektest
 cp /tmp/Storage/${LE_version}/target/SYSTEM /tmp/System/
+echo ektest
 
 #sanity check file sizes
 [ -s /tmp/System/KERNEL ] || LE_install_error "LE KERNEL has file size 0"
