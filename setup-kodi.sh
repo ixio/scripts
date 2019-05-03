@@ -11,7 +11,7 @@
 #
 
 #where the stuff is
-script_url="https://raw.githubusercontent.com/MrChromebox/scripts/master/"
+script_url="https://raw.githubusercontent.com/ixio/scripts/master/"
 
 #set working dir
 cd /tmp
