@@ -181,7 +181,8 @@ then
 fi
 
 #format partitions, disable journaling, set labels
-mkfs.ext4 -v -m0 -O ^has_journal -L KERN-C ${target_kern} > /dev/null 2>&1
+echo "Format partition"
+mkfs.ext4 -v -m0 -O ^has_journal -L KERN-C -N 1000 ${target_kern} > /dev/null 2>&1
 if [ $? -ne 0 ]; then
 	LE_install_error "Failed to format LE partition(s); reboot and try again"
 fi
@@ -272,19 +273,20 @@ if [ $? -ne 0 ]; then
 	LE_install_error "Failed to install syslinux; reboot and try again"
 fi
 
-echo_yellow "Downloading LibreELEC"
+echo_yellow "Checking LibreELEC"
 
 #get LibreELEC
 tar_file="${LE_version}.tar"
 tar_url="${LE_url}${tar_file}"
-cd /tmp/
-if [ ! -f ${tar_file} ]; then
+cd /tmp
+if [ ! -f $tar_file ]; then
+  echo_yellow "Downloading LibreELEC"
 	curl -L -o $tar_file $tar_url
+  if [ $? -ne 0 ]; then
+	  LE_install_error "Failed to download LibreELEC; check your Internet connection and try again"
+  fi
 fi
-if [ $? -ne 0 ]; then
-	LE_install_error "Failed to download LibreELEC; check your Internet connection and try again"
-fi
-echo_yellow "\nLibreELEC download complete; installing..."
+echo_yellow "\nLibreELEC downloaded; installing..."
 cd /tmp/Storage
 cp /tmp/${tar_file} . 
 tar -xpf $tar_file
