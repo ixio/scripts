@@ -280,7 +280,7 @@ tar_url="${LE_url}${tar_file}"
 cd /tmp/
 if [ ! -f ${tar_file} ]; then
 	curl -L -o $tar_file $tar_url
-if
+fi
 if [ $? -ne 0 ]; then
 	LE_install_error "Failed to download LibreELEC; check your Internet connection and try again"
 fi
