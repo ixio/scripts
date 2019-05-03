@@ -277,12 +277,16 @@ echo_yellow "Downloading LibreELEC"
 #get LibreELEC
 tar_file="${LE_version}.tar"
 tar_url="${LE_url}${tar_file}"
-cd /tmp/Storage
-curl -L -o $tar_file $tar_url
+cd /tmp/
+if [ ! -f ${tar_file} ]; then
+	curl -L -o $tar_file $tar_url
+if
 if [ $? -ne 0 ]; then
 	LE_install_error "Failed to download LibreELEC; check your Internet connection and try again"
 fi
 echo_yellow "\nLibreELEC download complete; installing..."
+cd /tmp/Storage
+cp /tmp/${tar_file} . 
 tar -xpf $tar_file
 if [ $? -ne 0 ]; then
 	LE_install_error "Failed to extract LibreELEC download; check your Internet connection and try again"
@@ -290,6 +294,7 @@ fi
 
 #install
 echo ektest
+df -h
 du -sh /tmp/Storage/${LE_version}/target/*
 cp /tmp/Storage/${LE_version}/target/KERNEL /tmp/System/
 echo ektest
