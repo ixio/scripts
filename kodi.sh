@@ -290,6 +290,7 @@ fi
 
 #install
 cp /tmp/Storage/${LE_version}/target/KERNEL /tmp/System/
+echo ektest
 cp /tmp/Storage/${LE_version}/target/SYSTEM /tmp/System/
 
 #sanity check file sizes
