@@ -181,7 +181,6 @@ then
 fi
 
 #format partitions, disable journaling, set labels
-echo "Format partition"
 mkfs.ext4 -v -m0 -O ^has_journal -L KERN-C -N 1000 ${target_kern} > /dev/null 2>&1
 if [ $? -ne 0 ]; then
 	LE_install_error "Failed to format LE partition(s); reboot and try again"
@@ -280,7 +279,7 @@ tar_file="${LE_version}.tar"
 tar_url="${LE_url}${tar_file}"
 cd /tmp
 if [ ! -f $tar_file ]; then
-  echo_yellow "Downloading LibreELEC"
+  echo_yellow "Downloading LibreELEC at $tar_url"
 	curl -L -o $tar_file $tar_url
   if [ $? -ne 0 ]; then
 	  LE_install_error "Failed to download LibreELEC; check your Internet connection and try again"
@@ -295,13 +294,8 @@ if [ $? -ne 0 ]; then
 fi
 
 #install
-echo ektest
-df -h
-du -sh /tmp/Storage/${LE_version}/target/*
 cp /tmp/Storage/${LE_version}/target/KERNEL /tmp/System/
-echo ektest
 cp /tmp/Storage/${LE_version}/target/SYSTEM /tmp/System/
-echo ektest
 
 #sanity check file sizes
 [ -s /tmp/System/KERNEL ] || LE_install_error "LE KERNEL has file size 0"
